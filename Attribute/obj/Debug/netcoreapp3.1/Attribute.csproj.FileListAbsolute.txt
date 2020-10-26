@@ -1,0 +1,13 @@
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.csprojAssemblyReference.cache
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.AssemblyInfoInputs.cache
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.AssemblyInfo.cs
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.csproj.CoreCompileInputs.cache
+/home/tardis1/gtk/Attribute/bin/Debug/netcoreapp3.1/Attribute
+/home/tardis1/gtk/Attribute/bin/Debug/netcoreapp3.1/Attribute.deps.json
+/home/tardis1/gtk/Attribute/bin/Debug/netcoreapp3.1/Attribute.runtimeconfig.json
+/home/tardis1/gtk/Attribute/bin/Debug/netcoreapp3.1/Attribute.runtimeconfig.dev.json
+/home/tardis1/gtk/Attribute/bin/Debug/netcoreapp3.1/Attribute.dll
+/home/tardis1/gtk/Attribute/bin/Debug/netcoreapp3.1/Attribute.pdb
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.dll
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.pdb
+/home/tardis1/gtk/Attribute/obj/Debug/netcoreapp3.1/Attribute.genruntimeconfig.cache

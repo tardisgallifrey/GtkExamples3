@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "vK9AF51/EWsU7q+ZtwR72Tmigx6dLPMZyENoL48ldWNyEwHuMwEBSQLph6kD+fc88792JgtFUjiBfepc5djCQg==",
+  "success": true,
+  "projectFilePath": "/home/tardis1/gtk/HelloWorld/HelloWorld.csproj",
+  "expectedPackageFiles": [
+    "/home/tardis1/.nuget/packages/atksharp/3.22.25.128/atksharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/cairosharp/3.22.25.128/cairosharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/gdksharp/3.22.25.128/gdksharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/giosharp/3.22.25.128/giosharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/glibsharp/3.22.25.128/glibsharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/gtksharp/3.22.25.128/gtksharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/pangosharp/3.22.25.128/pangosharp.3.22.25.128.nupkg.sha512"
+  ],
+  "logs": []
+}
