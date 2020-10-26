@@ -4,49 +4,48 @@
  * completion in GtkEntry.
  *
  */
-using System;
 using Gtk;
 
-namespace GtkDemo
+namespace EntryCompletionDemo
 {
-	[Demo ("Entry Completion", "DemoEntryCompletion.cs")]
-	public class DemoEntryCompletion : Dialog
-	{
-		public DemoEntryCompletion () : base ("Demo Entry Completion", null, DialogFlags.DestroyWithParent)
-		{
-			Resizable = false;
+    [Demo("Entry Completion", "DemoEntryCompletion.cs")]
+    public class DemoEntryCompletion : Dialog
+    {
+        public DemoEntryCompletion() : base("Demo Entry Completion", null, DialogFlags.DestroyWithParent)
+        {
+            Resizable = false;
 
-			VBox vbox = new VBox (false, 5);
-			vbox.BorderWidth = 5;
-			this.ContentArea.PackStart (vbox, true, true, 0);
+            VBox vbox = new VBox(false, 5);
+            vbox.BorderWidth = 5;
+            this.ContentArea.PackStart(vbox, true, true, 0);
 
-			Label label = new Label ("Completion demo, try writing <b>total</b> or <b>gnome</b> for example.");
-			label.UseMarkup = true;
-			vbox.PackStart (label, false, true, 0);
+            Label label = new Label("Completion demo, try writing <b>total</b> or <b>gnome</b> for example.");
+            label.UseMarkup = true;
+            vbox.PackStart(label, false, true, 0);
 
-			Entry entry = new Entry ();
-			vbox.PackStart (entry, false, true, 0);
+            Entry entry = new Entry();
+            vbox.PackStart(entry, false, true, 0);
 
-			entry.Completion = new EntryCompletion ();
-			entry.Completion.Model = CreateCompletionModel ();
-			entry.Completion.TextColumn = 0;
+            entry.Completion = new EntryCompletion();
+            entry.Completion.Model = CreateCompletionModel();
+            entry.Completion.TextColumn = 0;
 
-			AddButton (Stock.Close, ResponseType.Close);
+            AddButton(Stock.Close, ResponseType.Close);
 
-			ShowAll ();
-			Run ();
-			Destroy ();
-		}
+            ShowAll();
+            Run();
+            Dispose(true);
+        }
 
-		ITreeModel CreateCompletionModel ()
-		{
-			ListStore store = new ListStore (typeof (string));
+        ITreeModel CreateCompletionModel()
+        {
+            ListStore store = new ListStore(typeof(string));
 
-			store.AppendValues ("GNOME");
-			store.AppendValues ("total");
-			store.AppendValues ("totally");
+            store.AppendValues("GNOME");
+            store.AppendValues("total");
+            store.AppendValues("totally");
 
-			return store;
-		}
-	}
+            return store;
+        }
+    }
 }
