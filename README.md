@@ -6,7 +6,7 @@ As found, most of these would not run as they were in a form not recognized by m
 
 What I have done is modified each one so that it would actually work and produce it's correct output.  These are not useable programs in most cases.
 
-NOTE: Though I have tried to correct what I can to bring it up to current standards (as I kow them), there are still a few problems.  Mostly, this relates to obsolete class/method calls.
+NOTE: Though I have tried to correct what I can to bring it up to current standards (as I know them), there are still a few problems.  Mostly, this relates to obsolete class/method calls.
 
 As far as I know right now, even though obsolete and deprecated, the calls will still run.  I've tested each one that I've completed so far.
 
