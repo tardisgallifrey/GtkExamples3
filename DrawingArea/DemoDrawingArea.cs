@@ -17,9 +17,14 @@ using System;
 using Gtk;
 using Gdk;
 
-namespace GtkDemo
+namespace DrawingAreaDemo
 {
 	[Demo ("Drawing Area", "DemoDrawingArea.cs")]
+
+	//I cannot explain why, but the namespace is required
+	//for Gtk.Window inheritance.  Possibly, there are multiple Window types 
+	//in other namesapaces??
+
 	public class DemoDrawingArea : Gtk.Window
 	{
 		private Cairo.Surface surface = null;
@@ -75,12 +80,13 @@ namespace GtkDemo
 			da.Events |= EventMask.LeaveNotifyMask | EventMask.ButtonPressMask |
 				EventMask.PointerMotionMask | EventMask.PointerMotionHintMask;
 
-			ShowAll ();
+			ShowAll();
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 
