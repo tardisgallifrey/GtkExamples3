@@ -6,11 +6,10 @@
  * shows.
  */
 
-using System;
 using System.Collections.Generic;
 using Gtk;
 
-namespace GtkDemo
+namespace Hypertext
 {
 	[Demo ("Hyper Text", "DemoHyperText.cs", "Text Widget")]
 	public class DemoHyperText : Gtk.Window
@@ -111,7 +110,9 @@ namespace GtkDemo
 		void SetCursorIfAppropriate (TextView view, int x, int y)
 		{
 			bool hovering = false;
-			TextIter iter = view.GetIterAtLocation (x, y);
+			TextIter iter = new TextIter();
+
+			view.GetIterAtLocation ( out iter, x, y);
 
 			foreach (TextTag tag in iter.Tags) {
 				hovering = true;
@@ -166,7 +167,7 @@ namespace GtkDemo
 				return;
 
 			view.WindowToBufferCoords (TextWindowType.Widget, (int) evt.X, (int) evt.Y, out x, out y);
-			iter = view.GetIterAtLocation (x, y);
+			view.GetIterAtLocation (out iter, x, y);
 
 			FollowIfLink (view, iter);
 		}
@@ -198,7 +199,8 @@ namespace GtkDemo
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 	}
