@@ -7,12 +7,12 @@
 using System;
 using Gtk;
 
-namespace GtkDemo
+namespace ExpanderDemo
 {
 	[Demo ("Expander", "DemoExpander.cs")]
 	public class DemoExpander : Gtk.Dialog
 	{
-		public DemoExpander () : base ("Demo Expander", null, DialogFlags.DestroyWithParent)
+		public DemoExpander () : base ("Demo Expander", null, DialogFlags.Modal)
 		{
 			Resizable = false;
 
@@ -30,8 +30,8 @@ namespace GtkDemo
 			AddButton (Stock.Close, ResponseType.Close);
 
 			ShowAll ();
-			Run ();
-			Destroy ();
+			this.Run ();
+			this.Dispose(true);
 		}
 	}
 }

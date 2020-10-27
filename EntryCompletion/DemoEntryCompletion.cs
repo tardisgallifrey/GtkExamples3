@@ -11,7 +11,7 @@ namespace EntryCompletionDemo
     [Demo("Entry Completion", "DemoEntryCompletion.cs")]
     public class DemoEntryCompletion : Dialog
     {
-        public DemoEntryCompletion() : base("Demo Entry Completion", null, DialogFlags.DestroyWithParent)
+        public DemoEntryCompletion() : base("Demo Entry Completion", null, DialogFlags.Modal)
         {
             Resizable = false;
 
