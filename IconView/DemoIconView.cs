@@ -2,8 +2,7 @@ using System;
 using System.IO;
 using Gtk;
 
-#if GTK_SHARP_2_6
-namespace GtkDemo
+namespace IconViewDemo
 {
 	[Demo ("Icon View", "DemoIconView.cs")]
 	public class DemoIconView : Window
@@ -77,7 +76,7 @@ namespace GtkDemo
 			ListStore store = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf), typeof (bool));
 
 			// Set sort column and function
-			store.DefaultSortFunc = new TreeIterCompareFunc (SortFunc);
+			//store.DefaultSortFunc = new TreeIterCompareFunc (;
 			store.SetSortColumnId (COL_DISPLAY_NAME, SortType.Ascending);
 
 			return store;
@@ -105,21 +104,6 @@ namespace GtkDemo
 			}
 		}
 
-		int SortFunc (TreeModel model, TreeIter a, TreeIter b)
-		{
-			// sorts folders before files
-			bool a_is_dir = (bool) model.GetValue (a, COL_IS_DIRECTORY);
-			bool b_is_dir = (bool) model.GetValue (b, COL_IS_DIRECTORY);
-			string a_name = (string) model.GetValue (a, COL_DISPLAY_NAME);
-			string b_name = (string) model.GetValue (b, COL_DISPLAY_NAME);
-
-			if (!a_is_dir && b_is_dir)
-				return 1;
-			else if (a_is_dir && !b_is_dir)
-				return -1;
-			else
-				return String.Compare (a_name, b_name);
-		}
 
 		void OnHomeClicked (object sender, EventArgs a)
 		{
@@ -160,5 +144,4 @@ namespace GtkDemo
 		}
 	}
 }
-#endif
 
