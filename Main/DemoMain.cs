@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
+
 using Gdk;
 using Gtk;
 using Pango;
 
-namespace GtkDemo
+//Though the window loads and displays,
+//I have no idea how this is supposed to work.
+//I added a Loadfile to the constructor, yet no code text
+//displays.
+
+namespace MainDemo
 {
+	[Demo ("IconView", @"../IconView/DemoIconView.cs")]
+
 	public class DemoMain
 	{
+
 		private Gtk.Window window;
 		private TextBuffer infoBuffer = new TextBuffer (null);
 		private TextBuffer sourceBuffer = new TextBuffer (null);
@@ -18,15 +27,10 @@ namespace GtkDemo
 		private TreeStore store;
 		private TreeIter oldSelection = TreeIter.Zero;
 
-		public static void Main (string[] args)
-		{
-			Application.Init ();
-			new DemoMain ();
-			Application.Run ();
-		}
-
+		
 		public DemoMain ()
 		{
+
 			SetupDefaultIcon ();
 		   	window = new Gtk.Window ("Gtk# Code Demos");
 		   	window.SetDefaultSize (600, 400);
@@ -138,7 +142,7 @@ namespace GtkDemo
 
 		private void SetupDefaultIcon ()
 		{
-			Gdk.Pixbuf pixbuf = Gdk.Pixbuf.LoadFromResource ("gtk-logo-rgb.gif");
+			Gdk.Pixbuf pixbuf = new Gdk.Pixbuf(@"../pixmaps/gtk-sharp-logo.png");      //.LoadFromResource ("gtk-logo-rgb.gif");
 
 			if (pixbuf != null) {
 				// The gtk-logo-rgb icon has a white background
@@ -181,7 +185,7 @@ namespace GtkDemo
 
 			if (IsSource) {
 				FontDescription fontDescription = FontDescription.FromString ("monospace");
-				textView.OverrideFont (fontDescription);
+				//textView.OverrideFont (fontDescription);
 				textView.WrapMode = Gtk.WrapMode.None;
 			} else {
 				// Make it a bit nicer for text
@@ -200,10 +204,11 @@ namespace GtkDemo
 			Dictionary<string, TreeIter> parents = new Dictionary<string, TreeIter> ();
 			TreeIter parent;
 
+			//The Demo type is a type of Attribute from DemoAttribute.cs
 			Type[] types = Assembly.GetExecutingAssembly ().GetTypes ();
 			foreach (Type t in types) {
-				object[] att = t.GetCustomAttributes (typeof (DemoAttribute), false);
-				foreach (DemoAttribute demo in att) {
+				object[] att = t.GetCustomAttributes (typeof (Demo), false);
+				foreach (Demo demo in att) {
 					if (demo.Parent != null) {
 						if (!parents.ContainsKey (demo.Parent))
 							parents.Add (demo.Parent, store.AppendValues (demo.Parent));
@@ -224,11 +229,12 @@ namespace GtkDemo
 			TreeIter iter;
 			ITreeModel model;
 
+			//The Demo class type is a type of Attribute from the DemoAttribute.cs file.
 			if (treeView.Selection.GetSelected (out model, out iter)) {
 				Type type = (Type) model.GetValue (iter, 1);
 				if (type != null) {
-					object[] atts = type.GetCustomAttributes (typeof (DemoAttribute), false);
-					string file = ((DemoAttribute) atts[0]).Filename;
+					object[] atts = type.GetCustomAttributes (typeof (Demo), false);
+					string file = ((Demo) atts[0]).Filename;
 					LoadFile (file);
 				}
 
