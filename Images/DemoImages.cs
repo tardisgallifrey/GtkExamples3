@@ -14,11 +14,12 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Drawing.Imaging;
 
 using Gtk;
 using Gdk;
 
-namespace GtkDemo
+namespace ImagesDemo
 {
 	[Demo ("Images", "DemoImages.cs")]
 	public class DemoImages : Gtk.Window
@@ -48,7 +49,8 @@ namespace GtkDemo
 			alignment.Add (frame);
 			vbox.PackStart (alignment, false, false, 0);
 
-			Gtk.Image image = Gtk.Image.LoadFromResource ("gtk-logo-rgb.gif");
+			Gtk.Image image = new Gtk.Image(@"../pixmaps/gtk-sharp-logo.png");
+	
 			frame.Add (image);
 
 			// Animation
@@ -63,7 +65,7 @@ namespace GtkDemo
 			alignment.Add (frame);
 			vbox.PackStart (alignment, false, false, 0);
 
-			image = Gtk.Image.LoadFromResource ("floppybuddy.gif");
+			image = new Gtk.Image(@"../pixmaps/gtk-sharp-logo.png");
 			frame.Add (image);
 
 			// Progressive
@@ -114,7 +116,8 @@ namespace GtkDemo
 
   		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 
@@ -148,8 +151,9 @@ namespace GtkDemo
 		// gtk-demo does
 		private bool ProgressiveTimeout ()
 		{
-			if (imageStream == null) {
-				Stream stream = Assembly.GetExecutingAssembly ().GetManifestResourceStream ("alphatest.png");
+			if (imageStream == null) 
+			{
+				FileStream stream = new FileStream(@"../pixmaps/gtk-sharp-logo.png", FileMode.Open, FileAccess.Read);
 				imageStream = new BinaryReader (stream);
 				pixbufLoader = new Gdk.PixbufLoader ();
 				pixbufLoader.AreaPrepared += new EventHandler (ProgressivePreparedCallback);
