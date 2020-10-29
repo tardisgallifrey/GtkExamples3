@@ -13,8 +13,6 @@
 
 using System;
 using System.IO;
-using System.Reflection;
-using System.Drawing.Imaging;
 
 using Gtk;
 using Gdk;

@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "M3iNpkDXQqmMIt9RqGrSVdQXoIfQ4Jg5yMJ6Vx8IyBMMpue5tXn2dZyAqSSZhuiwb7s5oepWF7aJyA6iuwKgzg==",
+  "success": true,
+  "projectFilePath": "/home/tardis1/gtk/ListStore/ListStore.csproj",
+  "expectedPackageFiles": [
+    "/home/tardis1/.nuget/packages/atksharp/3.22.25.128/atksharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/cairosharp/3.22.25.128/cairosharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/gdksharp/3.22.25.128/gdksharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/giosharp/3.22.25.128/giosharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/glibsharp/3.22.25.128/glibsharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/gtksharp/3.22.25.128/gtksharp.3.22.25.128.nupkg.sha512",
+    "/home/tardis1/.nuget/packages/pangosharp/3.22.25.128/pangosharp.3.22.25.128.nupkg.sha512"
+  ],
+  "logs": []
+}
