@@ -1,6 +1,6 @@
 using System;
 
-namespace AttributeSample
+namespace Panes
 {
 	[AttributeUsage (AttributeTargets.Class)]
 	public class Demo : Attribute

@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using Gtk;
+
+
 /* Paned Widgets
  *
  * The HPaned and VPaned Widgets divide their content
@@ -12,11 +17,8 @@
  */
 
 
-using System;
-using System.Collections.Generic;
-using Gtk;
 
-namespace GtkDemo
+namespace Panes
 {
 	[Demo ("Paned Widget", "DemoPanes.cs")]
 	public class DemoPanes : Gtk.Window
@@ -132,7 +134,8 @@ namespace GtkDemo
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 	}
