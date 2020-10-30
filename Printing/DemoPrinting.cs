@@ -9,127 +9,134 @@ using System.Reflection;
 using Gtk;
 using Cairo;
 
-namespace GtkDemo
+namespace Printing
 {
-        public class DemoPrinting
+    public class DemoPrinting
+    {
+        private static double headerHeight = (10 * 72 / 25.4);
+        private static double headerGap = (3 * 72 / 25.4);
+        private static int pangoScale = 1024;
+
+        private PrintOperation print;
+
+        private string fileName = "DemoPrinting.cs";
+        private double fontSize = 12.0;
+        private int linesPerPage;
+        private string[] lines;
+        private int numLines;
+        private int numPages;
+
+        public DemoPrinting()
         {
-		private static double headerHeight = (10*72/25.4);
-		private static double headerGap = (3*72/25.4);
-		private static int pangoScale = 1024;
+			//Establish Printer Operations
+			new PrintOperation();
 
-		private PrintOperation print;
+			//Provide something to print and lay it out.
+			//In this case, this class file.
+            print.BeginPrint += new BeginPrintHandler(OnBeginPrint);
+            print.DrawPage += new DrawPageHandler(OnDrawPage);
+            print.EndPrint += new EndPrintHandler(OnEndPrint);
 
-		private string fileName = "DemoPrinting.cs";
-		private double fontSize = 12.0;
-		private int linesPerPage;
-		private string[] lines;
-		private int numLines;
-		private int numPages;
+			//Call Printer Dialog box
+            print.Run(PrintOperationAction.PrintDialog, null);
+        }
 
-                public DemoPrinting ()
-                {
-			print = new PrintOperation ();
-			
-			print.BeginPrint += new BeginPrintHandler (OnBeginPrint);
-			print.DrawPage += new DrawPageHandler (OnDrawPage);
-			print.EndPrint += new EndPrintHandler (OnEndPrint);
+        private void OnBeginPrint(object obj, Gtk.BeginPrintArgs args)
+        {
+            string contents;
+            double height;
 
-			print.Run (PrintOperationAction.PrintDialog, null);
-		}
+            PrintContext context = args.Context;
+            height = context.Height;
 
-		private void OnBeginPrint (object obj, Gtk.BeginPrintArgs args)
-		{
-			string contents;
-			double height;
+            linesPerPage = (int)Math.Floor(height / fontSize);
+            contents = LoadFile("DemoPrinting.cs");
 
-			PrintContext context = args.Context;
-			height = context.Height;
-		
-			linesPerPage = (int)Math.Floor(height / fontSize);
-			contents = LoadFile("DemoPrinting.cs");
+            lines = contents.Split('\n');
 
-			lines = contents.Split('\n');
-			
-			numLines = lines.Length;
-			numPages = (numLines - 1) / linesPerPage + 1;
-			
-			print.NPages = numPages;			
-		}
+            numLines = lines.Length;
+            numPages = (numLines - 1) / linesPerPage + 1;
 
-		private string LoadFile (string filename)
-		{
-			Stream file = Assembly.GetExecutingAssembly ().GetManifestResourceStream (filename);
-                        if (file == null && File.Exists (filename)) {
-                                file = File.OpenRead (filename);
-                        }
-			if (file == null) {
-				return "File not found";
-			}
+            print.NPages = numPages;
+        }
 
-			StreamReader sr = new StreamReader (file);
-			return sr.ReadToEnd ();
-		}
+        private string LoadFile(string filename)
+        {
+            Stream file = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename);
+            if (file == null && File.Exists(filename))
+            {
+                file = File.OpenRead(filename);
+            }
+            if (file == null)
+            {
+                return "File not found";
+            }
 
-		private void OnDrawPage (object obj, Gtk.DrawPageArgs args)
-		{
-			PrintContext context = args.Context;
+            StreamReader sr = new StreamReader(file);
+            return sr.ReadToEnd();
+        }
 
-			Cairo.Context cr = context.CairoContext;
-			double width = context.Width;
+        private void OnDrawPage(object obj, Gtk.DrawPageArgs args)
+        {
+            PrintContext context = args.Context;
 
-			cr.Rectangle (0, 0, width, headerHeight);
-			cr.SetSourceRGB (0.8, 0.8, 0.8);
-			cr.FillPreserve ();
+            Cairo.Context cr = context.CairoContext;
+            double width = context.Width;
 
-			cr.SetSourceRGB (0, 0, 0);
-			cr.LineWidth = 1;
-			cr.Stroke();
+            cr.Rectangle(0, 0, width, headerHeight);
+            cr.SetSourceRGB(0.8, 0.8, 0.8);
+            cr.FillPreserve();
 
-			Pango.Layout layout = context.CreatePangoLayout ();
-			
-			Pango.FontDescription desc = Pango.FontDescription.FromString ("sans 14");
-			layout.FontDescription = desc;
-			
-			layout.SetText (fileName);
-			layout.Width = (int)width;
-			layout.Alignment = Pango.Alignment.Center;
+            cr.SetSourceRGB(0, 0, 0);
+            cr.LineWidth = 1;
+            cr.Stroke();
 
-			int layoutWidth, layoutHeight;
-			layout.GetSize (out layoutWidth, out layoutHeight);
-			double textHeight = (double)layoutHeight / (double)pangoScale;
+            Pango.Layout layout = context.CreatePangoLayout();
 
-			cr.MoveTo (width/2, (headerHeight - textHeight) / 2);
-			Pango.CairoHelper.ShowLayout (cr, layout);
+            Pango.FontDescription desc = Pango.FontDescription.FromString("sans 14");
+            layout.FontDescription = desc;
 
-			string pageStr = String.Format ("{0}/{1}", args.PageNr + 1, numPages);
-			layout.SetText (pageStr);
-			layout.Alignment = Pango.Alignment.Right;
+            layout.SetText(fileName);
+            layout.Width = (int)width;
+            layout.Alignment = Pango.Alignment.Center;
 
-			cr.MoveTo (width - 2, (headerHeight - textHeight) / 2);
-			Pango.CairoHelper.ShowLayout (cr, layout);
+            int layoutWidth, layoutHeight;
+            layout.GetSize(out layoutWidth, out layoutHeight);
+            double textHeight = (double)layoutHeight / (double)pangoScale;
 
-			layout = null;
-			layout = context.CreatePangoLayout ();
+            cr.MoveTo(width / 2, (headerHeight - textHeight) / 2);
+            Pango.CairoHelper.ShowLayout(cr, layout);
 
-			desc = Pango.FontDescription.FromString ("mono");
-			desc.Size = (int)(fontSize * pangoScale);
-			layout.FontDescription = desc;
-			
-			cr.MoveTo (0, headerHeight + headerGap);
-			int line = args.PageNr * linesPerPage;
-			for (int i=0; i < linesPerPage && line < numLines; i++)
-			{
-				layout.SetText (lines[line]);
-				Pango.CairoHelper.ShowLayout (cr, layout);
-				cr.RelMoveTo (0, fontSize);
-				line++;
-			}
-			(cr as IDisposable).Dispose ();
-			layout = null;
-		}
+            string pageStr = String.Format("{0}/{1}", args.PageNr + 1, numPages);
+            layout.SetText(pageStr);
+            layout.Alignment = Pango.Alignment.Right;
 
-		private void OnEndPrint (object obj, Gtk.EndPrintArgs args)
-		{
-		}
-	}
+            cr.MoveTo(width - 2, (headerHeight - textHeight) / 2);
+            Pango.CairoHelper.ShowLayout(cr, layout);
+
+            layout = null;
+            layout = context.CreatePangoLayout();
+
+            desc = Pango.FontDescription.FromString("mono");
+            desc.Size = (int)(fontSize * pangoScale);
+            layout.FontDescription = desc;
+
+            cr.MoveTo(0, headerHeight + headerGap);
+            int line = args.PageNr * linesPerPage;
+            for (int i = 0; i < linesPerPage && line < numLines; i++)
+            {
+                layout.SetText(lines[line]);
+                Pango.CairoHelper.ShowLayout(cr, layout);
+                cr.RelMoveTo(0, fontSize);
+                line++;
+            }
+            (cr as IDisposable).Dispose();
+            layout = null;
+        }
+
+        private void OnEndPrint(object obj, Gtk.EndPrintArgs args)
+        {
+			Application.Quit();
+        }
+    }
 }
