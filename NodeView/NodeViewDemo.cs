@@ -1,16 +1,17 @@
+using System;
+using System.Reflection;
+using Gtk;
+
 // NodeViewDemo.cs - rework of TreeViewDemo to use NodeView.
 //
 // Author: Mike Kestner  <mkestner@novell.com>
 //
 // Copyright (c) 2004 Novell, Inc.
 
-namespace GtkSamples {
-
-	using System;
-	using System.Reflection;
-	using Gtk;
-
-	public class DemoTreeNode : TreeNode {
+namespace DemoNodeView 
+{
+	public class DemoTreeNode : TreeNode 
+	{
 		string desc;
 		static int count = 0;
 
@@ -50,14 +51,14 @@ namespace GtkSamples {
 			ScrolledWindow sw = new ScrolledWindow ();
 			Add (sw);
 
-			NodeView view = new NodeView (Store);
+			NodeView view = new NodeView(Store);
 			view.HeadersVisible = true;
 			view.AppendColumn ("Name", new CellRendererText (), "text", 0);
 			view.AppendColumn ("Type", new CellRendererText (), new NodeCellDataFunc (DataCallback));
 
 			sw.Add (view);
 			
-			dialog.Destroy ();
+			dialog.Dispose();
 			dialog = null;
 		}
 
@@ -106,17 +107,6 @@ namespace GtkSamples {
 				}
 				return store;
 			}
-		}
-
-		public static void Main (string[] args)
-		{
-			DateTime start = DateTime.Now;
-			Application.Init ();
-			Gtk.Window win = new NodeViewDemo ();	
-			win.ShowAll ();
-			Console.WriteLine (DemoTreeNode.Count + " nodes created.");
-			Console.WriteLine ("startup time: " + DateTime.Now.Subtract (start));
-			Application.Run ();
 		}
 
 		void DeleteCB (System.Object o, DeleteEventArgs args)

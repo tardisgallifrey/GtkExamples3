@@ -27,7 +27,7 @@
 using System;
 using Gtk;
 
-namespace GtkDemo
+namespace Menus
 {
 	[Demo ("Menus", "DemoMenus.cs")]
 	public class DemoMenus : Gtk.Window
@@ -99,12 +99,14 @@ namespace GtkDemo
 
 		private void CloseClicked (object o, EventArgs args)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 	}
