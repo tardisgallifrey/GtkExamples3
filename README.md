@@ -10,9 +10,11 @@ NOTE: Though I have tried to correct what I can to bring it up to current standa
 
 As far as I know right now, even though obsolete and deprecated, the calls will still run.  I've tested each one that I've completed so far.
 
+Additionally, while I got them running, I don't know if they run correctly, or what they are supposed to show.  I'll have to study them more after I finish. Or, you can.
+
 The work is not yet finished, but I hope to finish it soon.
 
-The last one I've completed is: EntryCompletion
+The last one I've completed is: Main
 
 
 WARNING: These were set up to run on a Linux PC, using .NET Core 3.1, and Nuget package GtkSharp.
