@@ -9,11 +9,10 @@
 
 using System;
 using System.Collections;
-
 using Gtk;
 using GLib;
 
-namespace GtkDemo
+namespace TreeStoreDemo
 {
 	[Demo ("TreeStore", "DemoTreeStore.cs", "Tree View")]
 	public class DemoTreeStore : Gtk.Window
@@ -39,7 +38,7 @@ namespace GtkDemo
 
 			// create tree view
 			TreeView treeView = new TreeView (store);
-			treeView.RulesHint = true;
+			//treeView.RulesHint = true;
 			treeView.Selection.Mode = SelectionMode.Multiple;
 			AddColumns (treeView);
 
@@ -155,7 +154,8 @@ namespace GtkDemo
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Gtk.Application.Quit();
 			return true;
 		}
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace AttributeSample
+namespace TreeStoreDemo
 {
 	[AttributeUsage (AttributeTargets.Class)]
 	public class Demo : Attribute
