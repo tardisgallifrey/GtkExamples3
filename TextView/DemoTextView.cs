@@ -8,11 +8,10 @@
 
 using System;
 using System.IO;
-
 using Gdk;
 using Gtk;
 
-namespace GtkDemo
+namespace TextViewDemo
 {
 	[Demo ("Multiple Views", "DemoTextView.cs", "Text Widget")]
 	public class DemoTextView : Gtk.Window
@@ -22,7 +21,7 @@ namespace GtkDemo
 
 		public DemoTextView () : base ("TextView")
 		{
-			SetDefaultSize (450,450);
+			SetDefaultSize (600, 600);
 			BorderWidth = 0;
 
 			VPaned vpaned = new VPaned ();
@@ -84,7 +83,7 @@ namespace GtkDemo
 			textView.AddChildAtAnchor (scale, scaleAnchor);
 			scale.ShowAll ();
 
-			Gtk.Image image = Gtk.Image.LoadFromResource ("floppybuddy.gif");
+			Gtk.Image image = new Gtk.Image(@"../pixmaps/gtk-sharp-logo.png");
 			textView.AddChildAtAnchor (image, animationAnchor);
 			image.ShowAll ();
 
@@ -228,7 +227,7 @@ namespace GtkDemo
 
 		private void InsertText (TextBuffer buffer)
 		{
-			Pixbuf pixbuf = Gdk.Pixbuf.LoadFromResource ("gtk-logo-rgb.gif");
+			Pixbuf pixbuf = new Pixbuf(@"../pixmaps/gtk-sharp-logo.png");
 			pixbuf = pixbuf.ScaleSimple (32, 32, InterpType.Bilinear);
 
 			// get start of buffer; each insertion will revalidate the
@@ -355,7 +354,8 @@ namespace GtkDemo
 
   		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 
