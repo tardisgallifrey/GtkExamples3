@@ -24,30 +24,16 @@ using Gtk;
 using Gdk;
 using System;
 
-namespace GtkSamples {
+namespace Scribble {
 
-	public class ScribbleArea : DrawingArea {
-
-		public static int Main (string[] args)
-		{
-			Application.Init ();
-			Gtk.Window win = new Gtk.Window ("Scribble");
-			win.DeleteEvent += delegate { Application.Quit (); };
-			win.BorderWidth = 8;
-			Frame frm = new Frame (null);
-			frm.ShadowType = ShadowType.In;
-			frm.Add (new ScribbleArea ());
-			win.Add (frm);
-			win.ShowAll ();
-			Application.Run ();
-			return 0;
-		}
+	public class ScribbleArea : DrawingArea 
+	{
 
 		Cairo.Surface surface;
 
 		public ScribbleArea ()
 		{
-			SetSizeRequest (200, 200);
+			SetSizeRequest (800, 600);
 			Events |= EventMask.ButtonPressMask | EventMask.PointerMotionMask | EventMask.PointerMotionHintMask;
 		}
 
