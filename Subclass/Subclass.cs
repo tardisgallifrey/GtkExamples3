@@ -4,48 +4,38 @@
 //
 // (c) 2001-2003 Mike Kestner, Novell, Inc.
 
-namespace GtkSamples {
 
-	using Gtk;
-	using System;
+using Gtk;
+using System;
 
-	public class ButtonAppSubclass  {
+//Was supposed to be a class about Subclasses,
+//But I think they were doing it with the main loop 
+//as the subclass, which isn't done like that (as I learned anyway)
 
-		public static int Main (string[] args)
-		{
-			Application.Init ();
-			Window win = new Window ("Button Tester");
-			win.DeleteEvent += new DeleteEventHandler (Quit);
-			Button btn = new MyButton ();
-			win.Add (btn);
-			win.ShowAll ();
-			Application.Run ();
-			return 0;
-		}
+//However, it is a good lesson on Gdk button binding features.
 
-		static void Quit (object sender, DeleteEventArgs args)
-		{
-			Application.Quit();
-		}
-	}
+namespace Subclass
+{
+        [Binding(Gdk.Key.Escape, "HandleBinding", "Escape")]
+        [Binding(Gdk.Key.Left, "HandleBinding", "Left")]
+        [Binding(Gdk.Key.Right, "HandleBinding", "Right")]
+        [Binding(Gdk.Key.Up, "HandleBinding", "Up")]
+        [Binding(Gdk.Key.Down, "HandleBinding", "Down")]
+        public class MyButton : Gtk.Button
+        {
 
-	[Binding (Gdk.Key.Escape, "HandleBinding", "Escape")]
-	[Binding (Gdk.Key.Left, "HandleBinding", "Left")]
-	[Binding (Gdk.Key.Right, "HandleBinding", "Right")]
-	[Binding (Gdk.Key.Up, "HandleBinding", "Up")]
-	[Binding (Gdk.Key.Down, "HandleBinding", "Down")]
-	public class MyButton : Gtk.Button {
+            public MyButton() : base("I'm a base class button") { }
 
-		public MyButton () : base ("I'm a subclassed button") {}
+            protected override void OnClicked()
+            {
+                Console.WriteLine("Button::Clicked default handler fired.");
+            }
 
-		protected override void OnClicked ()
-		{
-			Console.WriteLine ("Button::Clicked default handler fired.");
-		}
-
-		private void HandleBinding (string text)
-		{
-			Console.WriteLine ("Got a bound keypress: " + text);
-		}
-	}
+            private void HandleBinding(string text)
+            {
+                //Switch-Case could be used here to take action upon bound buttons.
+                Console.WriteLine("Got a bound keypress: " + text);
+            }
+        }
+    
 }
