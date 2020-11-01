@@ -1,3 +1,9 @@
+using System;
+using System.Collections;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using Gtk;
+
 // TreeModelSample.cs - TreeModelSample application.
 //
 // Author: Mike Kestner  <mkestner@novell.com>
@@ -18,13 +24,11 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace GtkSamples {
+//Just a different way to show a sample of all the namespaces and objects
 
-	using System;
-	using System.Collections;
-	using System.Reflection;
-	using System.Runtime.InteropServices;
-	using Gtk;
+namespace TreeSample.ModelDemo
+{
+
 
 	public class TreeModelDemo : Gtk.Window {
 
@@ -39,20 +43,6 @@ namespace GtkSamples {
 			sw.Add (view);
 			sw.ShowAll ();
 			Add (sw);
-		}
-
-		protected override bool OnDeleteEvent (Gdk.Event ev)
-		{
-			Application.Quit ();
-			return true;
-		}
-
-		public static void Main (string[] args)
-		{
-			Application.Init ();
-			Gtk.Window win = new TreeModelDemo ();	
-			win.Show ();
-			Application.Run ();
 		}
 
 	}
