@@ -1,6 +1,6 @@
 using System;
 
-namespace AttributeSample
+namespace SpinnerDemo
 {
 	[AttributeUsage (AttributeTargets.Class)]
 	public class Demo : Attribute

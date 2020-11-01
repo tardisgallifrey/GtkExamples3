@@ -7,7 +7,12 @@
 using System;
 using Gtk;
 
-namespace GtkDemo
+//This works, but no code was written
+//on what to do with the Entry boxes and 
+//what the spinners are spinning.
+
+
+namespace SpinnerDemo
 {
 	[Demo ("Spinner", "DemoSpinner.cs")]
 	public class DemoSpinner : Dialog
@@ -48,13 +53,11 @@ namespace GtkDemo
 			btn_stop.Clicked += OnStopClicked;
 			vbox.Add (btn_stop);
 
-			AddButton (Stock.Close, ResponseType.Close);
+			//Once again, don't currently know how to use this button
+			//AddButton (Stock.Close, ResponseType.Close);
 
 			OnPlayClicked (null, null);
 
-			ShowAll ();
-			Run ();
-			Destroy ();
 		}
 
 		private void OnPlayClicked (object sender, EventArgs e)
