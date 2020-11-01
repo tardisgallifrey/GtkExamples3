@@ -11,7 +11,7 @@ using System.Collections;
 using System.Reflection;
 using Gtk;
 
-namespace GtkDemo
+namespace StockBrowser
 {
 	[Demo ("Stock Item and Icon Browser", "DemoStockBrowser.cs")]
 	public class DemoStockBrowser : Gtk.Window
@@ -190,7 +190,8 @@ namespace GtkDemo
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 	}

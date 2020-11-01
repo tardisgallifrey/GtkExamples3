@@ -1,6 +1,6 @@
 using System;
 
-namespace AttributeSample
+namespace StockBrowser
 {
 	[AttributeUsage (AttributeTargets.Class)]
 	public class Demo : Attribute
