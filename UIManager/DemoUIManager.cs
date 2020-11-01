@@ -6,7 +6,17 @@
 using System;
 using Gtk;
 
-namespace GtkDemo
+
+//I kept this and made it work, which didn't take much
+//only because it seems very versatile.
+//However, the entire thing is obsolete and 
+//I can't guarantee how long the system
+//will last before changing.
+//
+//I've found no updates to use that don't require
+//complete rewruite of teh XML set up 
+
+namespace UIManagerDemo
 {
 	[Demo ("UIManager", "DemoUIManager.cs")]
 	public class DemoUIManager : Window
@@ -143,13 +153,15 @@ namespace GtkDemo
 
 		protected override bool OnDeleteEvent (Gdk.Event evt)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 			return true;
 		}
 
 		void CloseClicked (object sender, EventArgs a)
 		{
-			Destroy ();
+			Dispose(true);
+			Application.Quit();
 		}
 	}
 }
