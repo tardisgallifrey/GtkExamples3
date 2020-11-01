@@ -16,115 +16,115 @@
 using System;
 using Gtk;
 
-namespace GtkDemo
+namespace SizeGroupDemo
 {
-	[Demo ("Size Group", "DemoSizeGroup.cs")]
-	public class DemoSizeGroup : Dialog
-	{
-		private SizeGroup sizeGroup;
+    [Demo("Size Group", "DemoSizeGroup.cs")]
+    public class DemoSizeGroup : Dialog
+    {
+        private SizeGroup sizeGroup;
 
-		static string [] colors = { "Red", "Green", "Blue" };
-		static string [] dashes = { "Solid", "Dashed", "Dotted" };
-		static string [] ends = { "Square", "Round", "Arrow" };
+        static string[] colors = { "Red", "Green", "Blue" };
+        static string[] dashes = { "Solid", "Dashed", "Dotted" };
+        static string[] ends = { "Square", "Round", "Arrow" };
 
-		public DemoSizeGroup () : base ("SizeGroup", null, DialogFlags.DestroyWithParent,
-						Gtk.Stock.Close, Gtk.ResponseType.Close)
-		{
-			Resizable = false;
+        public DemoSizeGroup() : base("SizeGroup", null, DialogFlags.DestroyWithParent, null, ResponseType.Close)
+        {
+			//Could not figure out how to use Close button from original.
+			//Scrapped it and it runs fine with the following.
 
- 			VBox vbox = new VBox (false, 5);
- 			this.ContentArea.PackStart (vbox, true, true, 0);
- 			vbox.BorderWidth = 5;
+			ResponseType Id = new ResponseType();
+			DeleteEvent += delegate { OnResponse(Id); };
 
- 			sizeGroup = new SizeGroup (SizeGroupMode.Horizontal);
+            Resizable = false;
 
-			// Create one frame holding color options
- 			Frame frame = new Frame ("Color Options");
- 			vbox.PackStart (frame, true, true, 0);
+            VBox vbox = new VBox(false, 5);
+            this.ContentArea.PackStart(vbox, true, true, 0);
+            vbox.BorderWidth = 5;
 
- 			Table table = new Table (2, 2, false);
- 			table.BorderWidth = 5;
- 			table.RowSpacing = 5;
- 			table.ColumnSpacing = 10;
- 			frame.Add (table);
+            sizeGroup = new SizeGroup(SizeGroupMode.Horizontal);
 
- 			AddRow (table, 0, sizeGroup, "_Foreground", colors);
- 			AddRow (table, 1, sizeGroup, "_Background", colors);
+            // Create one frame holding color options
+            Frame frame = new Frame("Color Options");
+            vbox.PackStart(frame, true, true, 0);
 
-			// And another frame holding line style options
-			frame = new Frame ("Line Options");
-			vbox.PackStart (frame, false, false, 0);
+            Table table = new Table(2, 2, false);
+            table.BorderWidth = 5;
+            table.RowSpacing = 5;
+            table.ColumnSpacing = 10;
+            frame.Add(table);
 
-			table = new Table (2, 2, false);
-			table.BorderWidth = 5;
-			table.RowSpacing = 5;
-			table.ColumnSpacing = 10;
-			frame.Add (table);
+            AddRow(table, 0, sizeGroup, "_Foreground", colors);
+            AddRow(table, 1, sizeGroup, "_Background", colors);
 
- 			AddRow (table, 0, sizeGroup, "_Dashing", dashes);
- 			AddRow (table, 1, sizeGroup, "_Line ends", ends);
+            // And another frame holding line style options
+            frame = new Frame("Line Options");
+            vbox.PackStart(frame, false, false, 0);
 
-			// And a check button to turn grouping on and off
-  			CheckButton checkButton = new CheckButton ("_Enable grouping");
-  			vbox.PackStart (checkButton, false, false, 0);
-  			checkButton.Active = true;
- 			checkButton.Toggled += new EventHandler (ToggleGrouping);
+            table = new Table(2, 2, false);
+            table.BorderWidth = 5;
+            table.RowSpacing = 5;
+            table.ColumnSpacing = 10;
+            frame.Add(table);
 
-			ShowAll ();
-		}
+            AddRow(table, 0, sizeGroup, "_Dashing", dashes);
+            AddRow(table, 1, sizeGroup, "_Line ends", ends);
 
-		// Convenience function to create a combo box holding a number of strings
-		private ComboBox CreateComboBox (string [] strings)
-		{
-			ComboBoxText combo = new ComboBoxText ();
+            // And a check button to turn grouping on and off
+            CheckButton checkButton = new CheckButton("_Enable grouping");
+            vbox.PackStart(checkButton, false, false, 0);
+            checkButton.Active = true;
+            checkButton.Toggled += new EventHandler(ToggleGrouping);
 
-			foreach (string str in strings)
-				combo.AppendText (str);
+            ShowAll();
+        }
 
-			combo.Active = 0;
-			return combo;
-		}
+        // Convenience function to create a combo box holding a number of strings
+        private ComboBox CreateComboBox(string[] strings)
+        {
+            ComboBoxText combo = new ComboBoxText();
 
- 		private void AddRow (Table table, uint row, SizeGroup sizeGroup, string labelText, string [] options)
- 		{
- 			Label label = new Label (labelText);
- 			label.SetAlignment (0, 1);
+            foreach (string str in strings)
+                combo.AppendText(str);
 
-			table.Attach (label,
-				      0, 1, row, row + 1,
-				      AttachOptions.Expand | AttachOptions.Fill, 0,
-				      0, 0);
+            combo.Active = 0;
+            return combo;
+        }
 
-			ComboBox combo = CreateComboBox (options);
-			label.MnemonicWidget = combo;
+        private void AddRow(Table table, uint row, SizeGroup sizeGroup, string labelText, string[] options)
+        {
+            Label label = new Label(labelText);
+            label.SetAlignment(0, 1);
 
-			sizeGroup.AddWidget (combo);
-			table.Attach (combo,
-				      1, 2, row, row + 1,
-				      0, 0,
-				      0, 0);
-		}
+            table.Attach(label, 0, 1, row, row + 1, AttachOptions.Expand | AttachOptions.Fill, 0, 0, 0);
 
- 		private void ToggleGrouping (object o, EventArgs args)
- 		{
-			ToggleButton checkButton = (ToggleButton)o;
+            ComboBox combo = CreateComboBox(options);
+            label.MnemonicWidget = combo;
 
-			// SizeGroupMode.None is not generally useful, but is useful
-			// here to show the effect of SizeGroupMode.Horizontal by
-			// contrast
- 			SizeGroupMode mode;
+            sizeGroup.AddWidget(combo);
+            table.Attach(combo, 1, 2, row, row + 1, 0, 0, 0, 0);
+        }
 
- 			if (checkButton.Active)
- 				mode = SizeGroupMode.Horizontal;
- 			else
- 				mode = SizeGroupMode.None;
+        private void ToggleGrouping(object o, EventArgs args)
+        {
+            ToggleButton checkButton = (ToggleButton)o;
 
- 			sizeGroup.Mode = mode;
- 		}
+            // SizeGroupMode.None is not generally useful, but is useful
+            // here to show the effect of SizeGroupMode.Horizontal by
+            // contrast
+            SizeGroupMode mode;
 
-		protected override void OnResponse (Gtk.ResponseType responseId)
-		{
-			Destroy ();
-		}
-	}
+            if (checkButton.Active)
+                mode = SizeGroupMode.Horizontal;
+            else
+                mode = SizeGroupMode.None;
+
+            sizeGroup.Mode = mode;
+        }
+
+        protected override void OnResponse(Gtk.ResponseType responseId)
+        {
+            Dispose(true);
+            Application.Quit();
+        }
+    }
 }
