@@ -12,9 +12,9 @@ As far as I know right now, even though obsolete and deprecated, the calls will 
 
 Additionally, while I got them running, I don't know if they run correctly, or what they are supposed to show.  I'll have to study them more after I finish. Or, you can.
 
-The work is not yet finished, but I hope to finish it soon.
+I have completed all the ones you see.  They all work, though I might not be able to explain what they really do.
 
-The last one I've completed is: Main
+As time permits, I will go back through each one and create an index to better utilized the repo.
 
 
 WARNING: These were set up to run on a Linux PC, using .NET Core 3.1, and Nuget package GtkSharp.
