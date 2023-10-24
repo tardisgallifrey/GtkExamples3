@@ -8,7 +8,7 @@
         <!-- Even though the package doesn't require adding,
          this reference must be in your Gtk# project files-->
         <PackageReference Include="GtkSharp" Version="3.22.25.*" />
-        <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+        <PackageReference Include="System.Drawing.Common" Version="4.7.2" />
     </ItemGroup>
 
 </Project>
